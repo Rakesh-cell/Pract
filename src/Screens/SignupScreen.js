@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import React, { useState,useContext } from 'react'
+import { View, Text, StyleSheet, Image, TouchableOpacity,ScrollView} from 'react-native'
 import FormInput from '../components/FormInput'
 import FormButton from '../components/FormButton'
 import SocialButton from '../components/SocialButton'
+import {AuthContext} from '../navigation/AuthProvider'
 
 
 const SignupScreen = ({ navigation }) => {
@@ -10,8 +11,10 @@ const SignupScreen = ({ navigation }) => {
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
 
+    const {register} =useContext(AuthContext)
+
     return (
-        <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
             <Text style={styles.text}>Create an account</Text>
 
             <FormInput
@@ -42,7 +45,7 @@ const SignupScreen = ({ navigation }) => {
 
             <FormButton
                 buttonTitle="Sign Up"
-                onPress={() => { alert('pressed')}}
+                onPress={() => register(email,password)}
             />
 
             <View style={styles.textPrivate}>
@@ -82,7 +85,7 @@ const SignupScreen = ({ navigation }) => {
                 onPress={() => navigation.navigate('Login')}>
                 <Text style={styles.navButtonText}>Have an account? Sign In</Text>
             </TouchableOpacity>
-        </View>
+        </ScrollView>
     )
 }
 
@@ -90,7 +93,7 @@ const SignupScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
       backgroundColor: '#f9fafd',
-      flex: 1,
+    //   flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
       padding: 20,
